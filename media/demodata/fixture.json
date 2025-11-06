@@ -1,0 +1,67 @@
+[
+  {
+    "model": "demo.galaxy",
+    "pk": 1,
+    "fields": {
+      "name": "483113",
+      "image": "/media/demodata/1455_483113_stars_2.jpg",
+      "i_mean": 38.07,
+      "i_std": 0.12,
+      "pred_mean": [45.4836, 35.2827, 45.2218],
+      "pred_std": [2.5893, 7.4479, 3.0884],
+      "pred_alpha": [8.6152e-01, 9.4757e-11, 1.3848e-01]
+    }
+  },
+  {
+    "model": "demo.galaxy",
+    "pk": 2,
+    "fields": {
+      "name": "483812",
+      "image": "/media/demodata/1468_483812_stars_3.jpg",
+      "i_mean": 4.55,
+      "i_std": 0.09,
+      "pred_mean": [26.8955, 6.9348, 18.5318],
+      "pred_std": [3.4804, 3.3145, 4.2596],
+      "pred_alpha": [0.9891, 0.0031, 0.0078]
+    }
+  },
+  {
+    "model": "demo.galaxy",
+    "pk": 3,
+    "fields": {
+      "name": "498462",
+      "image": "/media/demodata/1785_498462_stars_1.jpg",
+      "i_mean": 48.54,
+      "i_std": 0.27,
+      "pred_mean": [50.6878, 46.8340, 48.6774],
+      "pred_std": [ 2.7273, 16.0423, 3.1976],
+      "pred_alpha": [8.8383e-01, 1.6243e-09, 1.1617e-01]
+    }
+  },
+  {
+    "model": "demo.galaxy",
+    "pk": 4,
+    "fields": {
+      "name": "498520",
+      "image": "/media/demodata/1786_498520_stars_1.jpg",
+      "i_mean": 85.23,
+      "i_std": 0.11,
+      "pred_mean": [87.8947, 56.2390, 88.0187],
+      "pred_std": [ 2.0958, 10.8037, 1.9628],
+      "pred_alpha": [9.4920e-01, 1.8513e-10, 5.0796e-02]
+    }
+  },
+  {
+    "model": "demo.galaxy",
+    "pk": 5,
+    "fields": {
+      "name": "483812",
+      "image": "/media/demodata/1801_499130_stars_3.jpg",
+      "i_mean": 34.15,
+      "i_std": 0.1,
+      "pred_mean": [34.7, 31.73, 34.05],
+      "pred_std": [2.67, 6.77, 3.18],
+      "pred_alpha": [9.4599e-01, 1.5899e-05, 5.3996e-02]
+    }
+  }
+]

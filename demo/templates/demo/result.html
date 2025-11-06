@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Incliscope</title>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'demo/style.css' %}">
+    <!--<script type="text/javascript" src="{% static 'main/heatmap.js' %}"></script>-->
+</head>
+<body>
+    <img src="{{ galaxy.image }}">
+    <p>{{ guess }}</p>
+</body>
+</html>

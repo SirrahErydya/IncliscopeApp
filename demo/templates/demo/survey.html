@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Incliscope</title>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'demo/style.css' %}">
+    <!--<script type="text/javascript" src="{% static 'main/heatmap.js' %}"></script>-->
+</head>
+<body>
+    <h1>Welcome to Incliscope!</h1>
+    <p>The bayesian framework Incliscope is a novel way to estimate inclinations of galaxies based on
+        optical images. Instead of fitting ellipsoids, we use a probabilistic approach to collect properly-calibrated
+        posterior distributions among inclinations from simulated galaxies and use them as training data for a
+        Deep Convolutional Mixture Density Network (DCMDN).</p>
+    <h2>Try it out!</h2>
+    <div class="survey-image">
+        <img src="{{ galaxy.image }}">
+    </div>
+    <p>What do you think is the inclination of this galaxy?</p>
+    <form id="sub-guess" action="{% url 'submit_guess' galaxy_id=galaxy.id %}" method="post"  enctype="multipart/form-data" >{% csrf_token %}
+        <label for="guess">Inclination (in degree):</label>
+        <input id='guess' type="text" name="guess"
+               value='0'/>
+        <input class='button' type="submit" value="Save"/>
+    </form>
+</body>
+</html>
