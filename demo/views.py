@@ -9,7 +9,7 @@ import json
 
 # Create your views here.
 def index(request):
-    redirect('survey')
+    return redirect('survey')
 
 
 def survey(request):
@@ -48,6 +48,11 @@ def result(request, galaxy_id):
     x = np.linspace(-5, 95, 400)
     n_pred = ib.mdg(x, mus, sigmas, alphas)
     n_gt = ib.pdf(x, galaxy.i_mean, galaxy.i_std)
+    guess_idx = 0
+    while True:
+        if x[guess_idx] > guess:
+            break
+        guess_idx +=1
     max_y = np.max(n_pred)
 
 
@@ -60,6 +65,7 @@ def result(request, galaxy_id):
         'x_values': json.dumps(list(x)),
         'n_pred': json.dumps(list(n_pred)),
         'n_gt': json.dumps(list(n_gt)),
+        'guess_idx': guess_idx,
         'max_y': max_y + 0.1
 
     }

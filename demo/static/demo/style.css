@@ -40,6 +40,11 @@ body h1 {
     background-color: #646464
 }
 
+a {
+    padding: 5px;
+    text-decoration: none;
+}
+
 /* Chrome, Safari, Edge, Opera */
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
@@ -68,5 +73,6 @@ input[type=number] {
     margin-top: 20px;
     float: right;
     width: 40vw;
+    height: 40vh;
 }
 
