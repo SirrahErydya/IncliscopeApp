@@ -52,3 +52,21 @@ input[type=number] {
   -moz-appearance: textfield;
 }
 
+.res-left {
+    margin-top: 20px;
+    height: 40vh;
+    width: 30vh;
+    float: left;
+    text-align: left;
+}
+
+.res-left img {
+    height: 40vh;
+}
+
+.res-right {
+    margin-top: 20px;
+    float: right;
+    width: 40vw;
+}
+

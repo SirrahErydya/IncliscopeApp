@@ -6,9 +6,58 @@
     {% load static %}
     <link rel="stylesheet" type="text/css" href="{% static 'demo/style.css' %}">
     <!--<script type="text/javascript" src="{% static 'main/heatmap.js' %}"></script>-->
+     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
-    <img src="{{ galaxy.image }}">
-    <p>{{ guess }}</p>
+    <h1>You guessed an inclination of {{ guess|floatformat:2 }}° for galaxy {{ galaxy.name }}!</h1>
+    <p>In truth, its inclination was <b>{{ galaxy.i_mean|floatformat:2 }}°.</b></p>
+    <p><b>Incliscope</b> predicted an inclination of <b>{{ predicted_mean|floatformat:2 }}°.</b></p>
+    {% if beat_incliscope %}
+        <h2>You beat Incliscope about {{ guess_pred_diff|floatformat:2 }}°!</h2>
+    {% else %}
+        <h2>Incliscope beat you about {{ guess_pred_diff|floatformat:2 }}°!</h2>
+    {% endif %}
+    <div class="res-left">
+        <img src="{{ galaxy.image }}">
+    </div>
+    <div class="res-right">
+         <canvas id="incliscope_graph" style="width:100%;"></canvas>
+         <script>
+            const xValues = {{ x_values }};
+
+            new Chart("incliscope_graph", {
+              type: "line",
+              data: {
+                labels: xValues,
+                datasets: [{
+                  data: {{ n_gt }},
+                  borderColor: "green",
+                  fill: false
+                },{
+                  data: {{ n_pred }},
+                  borderColor: "blue",
+                  fill: false
+                }]
+              },
+              options: {
+                legend: {display: false},
+                scales: {
+                    x: {
+                        ticks: {
+                            callback: function(value, index, ticks) {
+                                v = this.getLabelForValue(value)
+                                return v.toFixed(2);
+                            }
+                        },
+                    },
+                    y: {
+                        min: 0.,
+                        max: {{ max_y }}
+                    }
+                }
+              }
+            });
+         </script>
+    </div>
 </body>
 </html>
