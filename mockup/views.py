@@ -1,9 +1,9 @@
 from django.shortcuts import redirect
 from django.http import HttpResponse
 from django.template import loader
-from demo.models import Galaxy
+from mockup.models import Galaxy
 import random
-import demo.incliscope_business as ib
+import mockup.incliscope_business as ib
 import numpy as np
 import json
 
