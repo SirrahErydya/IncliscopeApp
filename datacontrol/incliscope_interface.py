@@ -3,7 +3,11 @@ from incliscope.models import PoolingCNN, MixedDensityGaussian
 import torch
 from torch import nn
 from datacontrol.models import Galaxy
-import sys
+import os
+from torchvision.utils import save_image
+
+from incliscopeapp.settings import MEDIA_ROOT
+
 
 class DCMDN(nn.Module):
     """
@@ -38,7 +42,11 @@ def make_db_entries(model_path, data_path):
     model.load_state_dict(
         torch.load(model_path, map_location=torch.device('cpu'), weights_only=True)['state_dict']
     )
-
+    upload_dir = os.path.join(MEDIA_ROOT, 'productiondata')
+    try:
+        os.mkdir(upload_dir)
+    except FileExistsError:
+        print('Directory ', upload_dir, ' already exists')
     for datapoint in dataset:
         id_str, img, incl_mean, incl_std = datapoint
         p_means, p_stds, p_weights = model(img.unsqueeze(0))
@@ -52,6 +60,7 @@ def make_db_entries(model_path, data_path):
             pred_std = p_stds.flatten().tolist(),
             pred_alpha = p_weights.flatten().tolist()
         )
+        save_image(img, os.path.join(upload_dir, id_str + '.jpg'))
         galaxy_obj.save()
 
 if __name__ == "__main__":

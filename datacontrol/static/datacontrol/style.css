@@ -1,0 +1,23 @@
+body {
+    background-color: black;
+    color: white;
+    font-family: Roboto;
+}
+
+header {
+    background-image: url(/media/resources/star_panorama.jpg);
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+    text-align: center;
+}
+
+header img {
+    width: 50%;
+
+}
+
+.header-text {
+    padding-left: 20%;
+    padding-right: 20%;
+}
