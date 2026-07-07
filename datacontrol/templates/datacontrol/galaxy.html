@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Incliscope</title>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'datacontrol/style.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'ellipsefit/style.css' %}">
+    <!--<script type="text/javascript" src="{% static 'main/heatmap.js' %}"></script>-->
+</head>
+<body>
+    <div class="container">
+        <div class="navbuttons">
+            <a class="button" href="{% url 'galaxy' galaxy_id=galaxy.id traditional=0 %}">Incliscope</a>
+            <a class="button" href="{% url 'galaxy' galaxy_id=galaxy.id traditional=1 %}">Isophote Fitting</a>
+            <a class="button" href="{% url 'index' %}">Back</a>
+        </div>
+        {% if traditional %}
+            {% include 'ellipsefit/isophotes.html' %}
+        {% endif %}
+    </div>
+
+</body>
+</html>

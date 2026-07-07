@@ -1,5 +1,17 @@
-body {
-    background-color: black;
-    color: white;
-    font-family: Arial;
+.container {
+    min-height: 100vh;
+}
+
+.isophote-canvas img {
+    width: 512px;
+    height: 512px;
+    position: absolute;
+    left: calc((100vw - 512px)/2);
+    top: 20vh;
+}
+
+.isophote-canvas canvas {
+    left: calc((100vw - 512px)/2);
+    top: 20vh;
+    position: absolute;
 }

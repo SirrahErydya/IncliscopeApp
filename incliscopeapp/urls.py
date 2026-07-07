@@ -26,4 +26,5 @@ urlpatterns = [
     path('', dviews.overview, name='index'),
     path('admin/', admin.site.urls),
     path('mockup/', include('mockup.urls')),
+    path('datacontrol/', include('datacontrol.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

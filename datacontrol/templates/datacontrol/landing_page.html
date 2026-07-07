@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>Incliscope</title>
     {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'datacontrol/style.css' %}">
     <!--<script type="text/javascript" src="{% static 'main/heatmap.js' %}"></script>-->
 </head>
@@ -14,14 +15,25 @@
         optical images. Instead of fitting ellipsoids, we use a probabilistic approach to collect properly-calibrated
         posterior distributions among inclinations from simulated galaxies and use them as training data for a
         Deep Convolutional Mixture Density Network (DCMDN).</p>
+        <br/>
+        <div class="navbuttons">
+            <a class="button" href="">Survey</a>
+            <a class="button" href="">Add Data</a>
+        </div>
     </header>
     <div class="container">
-        <div class="navbuttons">
-            <a href="">Survey</a>
-            <a href="">Add Data</a>
-        </div>
         <br/>
-        <p>...or explore them right here</p>
+        <p>Explore the inclination of these example galaxies with Incliscope or the traditional Isophote fitting method.</p>
+        <br/>
+        <div class="galaxy-grid">
+            {% for galaxy in galaxies %}
+                <div class="galaxy-gridcell">
+                    <a href="{% url 'galaxy' galaxy_id=galaxy.id traditional=0%}">
+                        <img src="{{ galaxy.image }}"/>
+                    </a>
+                </div>
+            {% endfor %}
+        </div>
     </div>
 </body>
 </html>

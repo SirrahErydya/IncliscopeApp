@@ -1,21 +1,20 @@
-body {
-    background-color: black;
-    color: white;
-    font-family: Arial;
-}
-
 header {
+    position: sticky;
+    top: 0;
+    left: 0;
     background-image: url(/media/resources/star_panorama.jpg);
     background-repeat: no-repeat;
     background-attachment: fixed;
     background-size: cover;
     text-align: center;
+    margin: 0;
     padding-bottom: 10px;
+    width: 100%;
+    overflow: hidden;
 }
 
 header img {
     width: 50%;
-
 }
 
 .header-text {
@@ -24,25 +23,29 @@ header img {
 }
 
 .container {
+    position: relative;
     text-align: center;
-    margin-top: 20px;
-    padding-top: 20px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    background-color: #424242;
+    z-index: 5;
 }
 
 .navbuttons {
+    padding-top: 20px;
     display: inline-block;
     min-height: 50px;
+    text-align: center;
 }
 
-.navbuttons a {
-    color: black;
-    background-color: cyan;
-    margin: 10px;
-    padding: 20px;
-    text-decoration: none;
+.galaxy-grid {
+    display: grid;
+    grid-template-columns: auto auto auto auto auto;
+    margin-left: 10%;
+    margin-right: 10%;
+    grid-column-gap: 1px;
 }
 
-.navbuttons a:hover {
-    background-color: yellow;
-    color: black;
+.galaxy-gridcell img {
+    width: 100%;
 }

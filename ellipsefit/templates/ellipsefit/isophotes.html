@@ -1,11 +1,7 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Isophote</title>
-    {% load static %}
-    <link rel="stylesheet" type="text/css" href="{% static 'ellipsefit/style.css' %}">
-    <!--<script type="text/javascript" src="{% static 'main/heatmap.js' %}"></script>-->
-</head>
-<body>
-</body>
+{% load static %}
+<div class="isophote-canvas">
+    <img src="{{ galaxy.image }}"/>
+    <canvas id="galaxy-canvas" width="512" height="512"></canvas>
+</div>
+
+<script type="text/javascript" src="{% static 'ellipsefit/draw_ellipses.js' %}"></script>

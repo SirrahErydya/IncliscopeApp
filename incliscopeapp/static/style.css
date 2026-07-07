@@ -1,0 +1,27 @@
+/* Common Styles for all pages */
+
+* {
+    margin: 0;
+    padding: 0;
+}
+body {
+    background-color: black;
+    color: white;
+    font-family: Arial;
+    margin: 0;
+    padding: 0;
+}
+
+.button {
+    color: black;
+    background-color: cyan;
+    margin: 10px;
+    padding: 20px;
+    text-decoration: none;
+    border-radius: 5px;
+}
+
+.button:hover {
+    background-color: yellow;
+    color: black;
+}
