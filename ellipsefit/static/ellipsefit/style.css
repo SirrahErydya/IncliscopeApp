@@ -6,12 +6,28 @@
     width: 512px;
     height: 512px;
     position: absolute;
-    left: calc((100vw - 512px)/2);
-    top: 20vh;
+    left: calc(100vw/2 - 512px);
+    top: 15vh;
 }
 
 .isophote-canvas canvas {
-    left: calc((100vw - 512px)/2);
-    top: 20vh;
+    left: calc(100vw/2 - 512px);
+    top: 15vh;
     position: absolute;
+}
+
+.inclination-label {
+    width: 512px;
+    position: absolute;
+    top: 15vh;
+    left: calc(100vw/2);
+}
+
+.inclination-label label {
+    margin-left: 15px;
+}
+
+.latex {
+    padding-top: 15px;
+    padding-bottom: 15px;
 }

@@ -4,7 +4,9 @@ var canvas = document.getElementById('galaxy-canvas'),
     h = canvas.height,
     x1,                 /// start points
     y1,
-    isDown = false;     /// if mouse button is down
+    isDown = false,     /// if mouse button is down
+    sma,                        /// semi major axis
+    smi;                        /// semi minor axis
 
 /// handle mouse down
 canvas.onmousedown = function(e) {
@@ -35,7 +37,17 @@ canvas.onmousemove = function(e) {
 
     /// draw ellipse
     drawEllipse(x1, y1, x2, y2);
+
 }
+
+// HTML adjustments
+const iValue = document.querySelector("#inclination-value");
+const q0value = document.querySelector("#q0-value");
+const q0input = document.querySelector("#q0");
+q0value.textContent = q0input.value;
+q0input.addEventListener("input", (event) => {
+  q0value.textContent = event.target.value;
+});
 
 function drawEllipse(x1, y1, x2, y2) {
 
@@ -67,4 +79,21 @@ function drawEllipse(x1, y1, x2, y2) {
     ctx.closePath();
     ctx.strokeStyle = 'yellow';
     ctx.stroke();
+
+    if(radiusX < radiusY) {
+        sma = radiusY;
+        smi = radiusX;
+    } else {
+        sma = radiusX;
+        smi = radiusY;
+    }
+
+    calculateInclination();
+}
+
+function calculateInclination() {
+    var i = Math.acos(Math.sqrt( ((smi/sma)**2 - q0input.value**2) / (1 - q0input.value**2) ));
+    i = (i * 180) / Math.PI;
+    iValue.textContent = i.toFixed(2) + '';
+    console.log(i);
 }
