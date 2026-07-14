@@ -2,7 +2,7 @@ from incliscope.data import PresavedIllustrisDataset
 from incliscope.models import PoolingCNN, MixedDensityGaussian
 import torch
 from torch import nn
-from datacontrol.models import Galaxy
+from explorer.models import Galaxy
 import os
 from torchvision.utils import save_image
 

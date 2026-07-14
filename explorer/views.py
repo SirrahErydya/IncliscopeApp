@@ -13,7 +13,7 @@ def overview(request):
     else:
         all_galaxies = list(Galaxy.objects.all())
         galaxies = random.sample(all_galaxies, 25)
-    template = loader.get_template('datacontrol/landing_page.html')
+    template = loader.get_template('explorer/landing_page.html')
     context = {'galaxies': galaxies}
     return HttpResponse(template.render(context, request))
 
@@ -21,5 +21,5 @@ def galaxy(request, galaxy_id, traditional=0):
     galaxy = Galaxy.objects.get(id=galaxy_id)
     context = {'galaxy': galaxy,
                'traditional': bool(traditional) }
-    template = loader.get_template('datacontrol/galaxy.html')
+    template = loader.get_template('explorer/galaxy.html')
     return HttpResponse(template.render(context, request))

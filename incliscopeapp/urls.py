@@ -19,12 +19,12 @@ from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 from . import views
-from datacontrol import views as dviews
+from explorer import views as dviews
 
 
 urlpatterns = [
     path('', dviews.overview, name='index'),
     path('admin/', admin.site.urls),
     path('mockup/', include('mockup.urls')),
-    path('datacontrol/', include('datacontrol.urls')),
+    path('explorer/', include('explorer.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

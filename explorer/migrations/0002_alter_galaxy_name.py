@@ -6,7 +6,7 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('datacontrol', '0001_initial'),
+        ('explorer', '0001_initial'),
     ]
 
     operations = [

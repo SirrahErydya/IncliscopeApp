@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from datacontrol.models import Galaxy
+from explorer.models import Galaxy
 
 # Create your views here.
 def ellipsefit(request, galaxy_id):

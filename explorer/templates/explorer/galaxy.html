@@ -5,8 +5,8 @@
     <title>Incliscope</title>
     {% load static %}
     <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
-    <link rel="stylesheet" type="text/css" href="{% static 'datacontrol/style.css' %}">
-    <link rel="stylesheet" type="text/css" href="{% static 'ellipsefit/style.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'explorer/explorer.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'explorer/isophotes.css' %}">
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"></script>
     <script src="{% static 'jslatex.js' %}"></script>
     <!--<script type="text/javascript" src="{% static 'main/heatmap.js' %}"></script>-->
@@ -24,7 +24,7 @@
             <a class="button" href="{% url 'index' %}">Back</a>
         </div>
         {% if traditional %}
-            {% include 'ellipsefit/isophotes.html' %}
+            {% include 'explorer/isophotes.html' %}
         {% endif %}
     </div>
 
