@@ -17,17 +17,32 @@
 }
 
 .inclination-label {
+    text-align: left;
     width: 512px;
     position: absolute;
     top: 15vh;
     left: calc(100vw/2);
+    padding-left: 30px;
 }
 
 .inclination-label label {
     margin-left: 15px;
 }
 
+.inclination-label p {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.inclination-label .button, .inclination-label .button-active {
+    margin-left: 0;
+}
+
 .latex {
     padding-top: 15px;
     padding-bottom: 15px;
+}
+
+output {
+    color: yellow;
 }

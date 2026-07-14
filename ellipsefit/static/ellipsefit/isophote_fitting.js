@@ -44,10 +44,17 @@ canvas.onmousemove = function(e) {
 const iValue = document.querySelector("#inclination-value");
 const q0value = document.querySelector("#q0-value");
 const q0input = document.querySelector("#q0");
+const toggleButton = document.querySelector('#toggle-button');
+const gtSpan = document.querySelector('#gt');
+
 q0value.textContent = q0input.value;
 q0input.addEventListener("input", (event) => {
   q0value.textContent = event.target.value;
+  calculateInclination();
 });
+toggleButton.onclick = toggleGroundTruth;
+
+drawEllipse(0,0,w,h);
 
 function drawEllipse(x1, y1, x2, y2) {
 
@@ -94,6 +101,21 @@ function drawEllipse(x1, y1, x2, y2) {
 function calculateInclination() {
     var i = Math.acos(Math.sqrt( ((smi/sma)**2 - q0input.value**2) / (1 - q0input.value**2) ));
     i = (i * 180) / Math.PI;
+    if(Number.isNaN(i)) {
+        i = 90.00;
+    }
     iValue.textContent = i.toFixed(2) + '';
     console.log(i);
+}
+
+function toggleGroundTruth() {
+    if (gtSpan.style.display === "none") {
+        gtSpan.style.display = "inline-block";
+        toggleButton.classList.remove('button');
+        toggleButton.classList.add('button-active');
+    } else {
+        gtSpan.style.display = "none";
+        toggleButton.classList.remove('button-active');
+        toggleButton.classList.add('button');
+    }
 }

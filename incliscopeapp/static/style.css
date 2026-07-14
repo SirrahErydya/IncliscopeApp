@@ -12,13 +12,23 @@ body {
     padding: 0;
 }
 
-.button {
+.button, .button-active {
+    border: none;
+    font-family: Arial;
+    font-size: 12pt;
     color: black;
-    background-color: cyan;
     margin: 10px;
     padding: 20px;
     text-decoration: none;
     border-radius: 5px;
+}
+
+.button {
+    background-color: cyan;
+}
+
+.button-active {
+    background-color: yellow;
 }
 
 .button:hover {

@@ -14,8 +14,13 @@
 <body>
     <div class="container">
         <div class="navbuttons">
-            <a class="button" href="{% url 'galaxy' galaxy_id=galaxy.id traditional=0 %}">Incliscope</a>
-            <a class="button" href="{% url 'galaxy' galaxy_id=galaxy.id traditional=1 %}">Isophote Fitting</a>
+            {% if traditional %}
+                <a class="button" href="{% url 'galaxy' galaxy_id=galaxy.id traditional=0 %}">Incliscope</a>
+                <a class="button-active" href="{% url 'galaxy' galaxy_id=galaxy.id traditional=1 %}">Isophote Fitting</a>
+            {% else %}
+                <a class="button-active" href="{% url 'galaxy' galaxy_id=galaxy.id traditional=0 %}">Incliscope</a>
+                <a class="button" href="{% url 'galaxy' galaxy_id=galaxy.id traditional=1 %}">Isophote Fitting</a>
+            {% endif %}
             <a class="button" href="{% url 'index' %}">Back</a>
         </div>
         {% if traditional %}
