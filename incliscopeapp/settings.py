@@ -32,8 +32,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    'ellipsefit.apps.EllipsefitConfig',
-    'explorer.apps.DatacontrolConfig',
+    'explorer.apps.ExplorerConfig',
     'mockup.apps.DemoConfig',
     'django.contrib.admin',
     'django.contrib.auth',

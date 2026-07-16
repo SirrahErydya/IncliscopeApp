@@ -1,0 +1,22 @@
+{% load static %}
+<script src=" https://cdn.jsdelivr.net/npm/chart.js@4.5.1/dist/chart.umd.min.js "></script>
+<div class="chart-canvas">
+    <canvas id="pdf"></canvas>
+</div>
+<div class="galaxy-window">
+    <img src="{{ galaxy.image }}"/>
+    <canvas id="ellipse-preview" width="256" height="256"></canvas>
+    <div class="axis-sliders">
+        <input type="range" id="sma" name="sma" min="1" max="255" step="1"/>
+        <label for="sma">Semimajor Axis = <output id="sma-value"></output></label>
+        <br/>
+        <input type="range" id="smi" name="smi" min="1" max="255" step="1"/>
+        <label for="smi">Semiminor Axis = <output id="smi-value"></output></label>
+    </div>
+</div>
+<script>
+    var pred_mean = JSON.parse('[' + {{ galaxy.pred_mean|escapejs }} +']');
+    var pred_std = JSON.parse('[' + {{ galaxy.pred_std|escapejs }} + ']');
+    var pred_alpha = JSON.parse('[' + {{ galaxy.pred_alpha|escapejs }} + ']');
+</script>
+<script src="{% static 'explorer/incliscope.js' %}"></script>

@@ -1,0 +1,36 @@
+.chart-canvas {
+    margin: 20px;
+    width: 55vw;
+    height: 80vh;
+}
+
+.galaxy-window {
+    position: absolute;
+    left: 60vw;
+    top: 15vh;
+    width: 40vw;
+}
+
+.galaxy-window img {
+    width: 256px;
+    height: 256px;
+    position: absolute;
+    left: 0vw;
+    top: 0vh;
+}
+
+.galaxy-window canvas {
+    left: 0vw;
+    top: 0vh;
+    position: absolute;
+}
+
+.axis-sliders {
+    top: 300px;
+    position: relative;
+    text-align: left;
+}
+
+.axis-sliders label {
+    margin-left: 15px;
+}

@@ -40,7 +40,7 @@ canvas.onmousemove = function(e) {
 
 }
 
-// HTML adjustments
+// UI functionalities
 const iValue = document.querySelector("#inclination-value");
 const q0value = document.querySelector("#q0-value");
 const q0input = document.querySelector("#q0");
