@@ -1,3 +1,5 @@
+// DATA
+
 function range(start, stop, num_samples) {
     a = Array(num_samples);
     step = (stop-start+1)/num_samples;
@@ -12,90 +14,100 @@ function range(start, stop, num_samples) {
 
 const samples = range(0.0, 90.00, 900.);
 
-(async function() {
-    const ctx = document.getElementById('pdf');
-    new Chart(ctx, {
-        type: 'line',
-        data: {
-            labels: samples,
-            datasets: [{
-                label: 'Probability',
-                data: samples.map(s => mixed_pdf(s, pred_mean, pred_std, pred_alpha))
-            }]
-        },
-        options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            hover: {
-                mode: 'index',
-                intersect: false,
-            },
-            plugins: {
-                corsair: {
-                    color: 'red'
-                }
-            },
-            scales: {
-                x: {
-                    ticks: {
-                        // For a category axis, the val is the index so the lookup via getLabelForValue is needed
-                        callback: function(val, index) {
-                            // Hide every 2nd tick label
-                            return index % 3 === 0 ? Math.round(this.getLabelForValue(val)*100)/100 + '°' : '';
-                        }
-                    },
-                    title: {
-                        display: true,
-                        text: "Inclination Angle"
-                    }
-                }
-            }
-        },
-        plugins: [{
-            id: 'corsair',
-            defaults: {
-                color: '#FF4949',
-            },
-            afterInit: (chart, args, opts) => {
-                chart.corsair = {
-                    x: 0,
-                    y: 0,
-                }
-            },
-            afterEvent: (chart, args) => {
-                const {inChartArea} = args
-                const {type,x,y} = args.event
+// PLUGINS
+corsairPlugin = {
+    id: 'corsair',
+    defaults: {
+        color: '#FF4949',
+    },
+    afterInit: (chart, args, opts) => {
+        chart.corsair = {
+            x: 0,
+            y: 0,
+        }
+    },
+    afterEvent: (chart, args) => {
+        const {inChartArea} = args
+        const {type,x,y} = args.event
 
-                chart.corsair = {x, y, draw: inChartArea}
-                chart.draw()
-            },
-            beforeDatasetsDraw: (chart, args, opts) => {
-                const {ctx} = chart
-                const {top, bottom, left, right} = chart.chartArea
-                const {x, y, draw} = chart.corsair
-                if (!draw) return
+        chart.corsair = {x, y, draw: inChartArea}
+        chart.draw()
+    },
+    beforeDatasetsDraw: (chart, args, opts) => {
+        const {ctx} = chart
+        const {top, bottom, left, right} = chart.chartArea
+        const {x, y, draw} = chart.corsair
+        if (!draw) return
 
-                ctx.save()
+        ctx.save()
 
-                ctx.beginPath()
-                ctx.lineWidth = 5
-                ctx.strokeStyle = opts.color
-                ctx.moveTo(x, bottom)
-                ctx.lineTo(x, top)
-                ctx.stroke()
+        ctx.beginPath()
+        ctx.lineWidth = 3
+        ctx.strokeStyle = opts.color
+        ctx.moveTo(x, bottom)
+        ctx.lineTo(x, top)
+        ctx.stroke()
 
-                ctx.beginPath()
-                ctx.lineWidth = 1
-                ctx.strokeStyle = opts.color
-                ctx.moveTo(left, y)
-                ctx.lineTo(right, y)
-                ctx.stroke()
+        /*ctx.beginPath()
+        ctx.lineWidth = 1
+        ctx.strokeStyle = opts.color
+        ctx.moveTo(left, y)
+        ctx.lineTo(right, y)
+        ctx.stroke()*/
 
-                ctx.restore()
-            }
+        // Label
+        ctx.textAlign = 'left';
+        ctx.font = "bold 14px Arial";
+        ctx.fillStyle = opts.color;
+        idx = chart.scales.x.getValueForPixel(x);
+        text = "i = " + Math.round(samples[idx] * 100) /100 + '°';
+        ctx.fillText(text, x + 5, top + 30);
+
+        ctx.restore()
+    }
+}
+
+// CHART
+const ctx = document.getElementById('pdf');
+new Chart(ctx, {
+    type: 'line',
+    data: {
+        labels: samples,
+        datasets: [{
+            label: 'Probability',
+            data: samples.map(s => mixed_pdf(s, pred_mean, pred_std, pred_alpha))
         }]
-    });
-})();
+    },
+    options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        hover: {
+            mode: 'index',
+            intersect: false,
+        },
+        plugins: {
+            corsair: {
+                color: 'red'
+            }
+        },
+        scales: {
+            x: {
+                ticks: {
+                    // For a category axis, the val is the index so the lookup via getLabelForValue is needed
+                    callback: function(val, index) {
+                        // Hide every 2nd tick label
+                        return index % 3 === 0 ? Math.round(this.getLabelForValue(val)*100)/100 + '°' : '';
+                    }
+                },
+                title: {
+                    display: true,
+                    text: "Inclination Angle"
+                }
+            }
+        }
+    },
+    plugins: [ corsairPlugin ]
+});
 
 function pdf(x, mean, std) {
     return (1./Math.sqrt(2*Math.PI*std**2)) * Math.exp(-0.5 * ((x-mean)/std)**2);
