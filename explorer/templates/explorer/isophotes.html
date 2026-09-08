@@ -17,9 +17,14 @@
         }
     </div>
     <input type="range" id="q0" name="q0" min="0.1" max="0.5" step="0.01"/>
-    <label for="volume">q0 = <output id="q0-value"></output></label>
-    <p>
-        <i>i</i> = <output id="inclination-value"></output>°
+    <label for="volume">q0 = <output id="q0-value"></output></label><br/>
+    <input type="range" id="width" name="width" min="1" max="255" step="1"/>
+    <label for="width">Width = <output id="width-value"></output></label>
+    <br/>
+    <input type="range" id="height" name="height" min="1" max="255" step="1"/>
+    <label for="height">Height = <output id="height-value"></output></label>
+    <p id="inclination">
+        Inclination <i>i</i> = <output id="inclination-value"></output>°
         <span id="gt" style="display:none;">(True value: {{ galaxy.i_mean|floatformat:2 }}°)</span>
     </p>
     <button class="button" id="toggle-button">Show Ground Truth</button>

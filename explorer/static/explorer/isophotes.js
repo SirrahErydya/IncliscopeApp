@@ -4,6 +4,8 @@ var canvas = document.getElementById('galaxy-canvas'),
     h = canvas.height,
     x1,                 /// start points
     y1,
+    cX,                 /// center points
+    cY,
     isDown = false,     /// if mouse button is down
     sma,                        /// semi major axis
     smi;                        /// semi minor axis
@@ -36,7 +38,7 @@ canvas.onmousemove = function(e) {
     ctx.clearRect(0, 0, w, h);
 
     /// draw ellipse
-    drawEllipse(x1, y1, x2, y2);
+    drawEllipseFromRectangle(x1, y1, x2, y2);
 
 }
 
@@ -54,32 +56,62 @@ q0input.addEventListener("input", (event) => {
 });
 toggleButton.onclick = toggleGroundTruth;
 
-drawEllipse(0,0,w,h);
+drawEllipseFromRectangle(0,0,w,h);
 
-function drawEllipse(x1, y1, x2, y2) {
+const widthSlider = document.querySelector('#width');
+const heightSlider = document.querySelector('#height');
+const ellipseWidth = document.querySelector('#width-value');
+const ellipseHeight = document.querySelector('#height-value');
+widthSlider.value = w;
+heightSlider.value = h;
+ellipseWidth.textContent = widthSlider.value;
+ellipseHeight.textContent = heightSlider.value;
 
+widthSlider.addEventListener("input", (event) => {
+  ellipseWidth.textContent = event.target.value;
+  drawEllipseFromSlider();
+});
+
+heightSlider.addEventListener("input", (event) => {
+  ellipseHeight.textContent = event.target.value;
+  drawEllipseFromSlider();
+});
+
+function drawEllipseFromSlider() {
+    ctx.clearRect(0, 0, w, h);
+    eW = widthSlider.value;
+    eH = heightSlider.value;
+    drawEllipse(eW, eH);
+}
+
+function drawEllipseFromRectangle(x1, y1, x2, y2) {
     var radiusX = (x2 - x1) * 0.5,   /// radius for x based on input
         radiusY = (y2 - y1) * 0.5,   /// radius for y based on input
         centerX = x1 + radiusX,      /// calc center
-        centerY = y1 + radiusY,
-        step = 0.01,                 /// resolution of ellipse
-        a = step,                    /// counter
-        pi2 = Math.PI * 2 - step;    /// end angle
+        centerY = y1 + radiusY
 
-
+    cX = centerX;
+    cY = centerY
+    drawEllipse(radiusX, radiusY);
     console.log(x1 + " " + y1)
 
+}
+
+function drawEllipse(radX, radY) {
+    var step = 0.01,                 /// resolution of ellipse
+        a = step,                    /// counter
+        pi2 = Math.PI * 2 - step;    /// end angle
     /// start a new path
     ctx.beginPath();
 
     /// set start point at angle 0
-    ctx.moveTo(centerX + radiusX * Math.cos(0),
-               centerY + radiusY * Math.sin(0));
+    ctx.moveTo(cX + radX * Math.cos(0),
+               cY + radY * Math.sin(0));
 
     /// create the ellipse
     for(; a < pi2; a += step) {
-        ctx.lineTo(centerX + radiusX * Math.cos(a),
-                   centerY + radiusY * Math.sin(a));
+        ctx.lineTo(cX + radX * Math.cos(a),
+                   cY + radY * Math.sin(a));
     }
 
     /// close it and stroke it for demo
@@ -87,12 +119,12 @@ function drawEllipse(x1, y1, x2, y2) {
     ctx.strokeStyle = 'yellow';
     ctx.stroke();
 
-    if(radiusX < radiusY) {
-        sma = radiusY;
-        smi = radiusX;
+    if(radX < radY) {
+        sma = radY;
+        smi = radX;
     } else {
-        sma = radiusX;
-        smi = radiusY;
+        sma = radX;
+        smi = radY;
     }
 
     calculateInclination();
