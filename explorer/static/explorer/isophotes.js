@@ -10,38 +10,6 @@ var canvas = document.getElementById('galaxy-canvas'),
     sma,                        /// semi major axis
     smi;                        /// semi minor axis
 
-/// handle mouse down
-canvas.onmousedown = function(e) {
-
-    /// get corrected mouse position and store as first point
-    var rect = canvas.getBoundingClientRect();
-    x1 = e.clientX - rect.left;
-    y1 = e.clientY - rect.top;
-    isDown = true;
-}
-
-/// clear isDown flag to stop drawing
-canvas.onmouseup = function() {
-    isDown = false;
-}
-
-/// draw ellipse from start point
-canvas.onmousemove = function(e) {
-
-    if (!isDown) return;
-
-    var rect = canvas.getBoundingClientRect(),
-        x2 = e.clientX - rect.left,
-        y2 = e.clientY - rect.top;
-
-    /// clear canvas
-    ctx.clearRect(0, 0, w, h);
-
-    /// draw ellipse
-    drawEllipseFromRectangle(x1, y1, x2, y2);
-
-}
-
 // UI functionalities
 const iValue = document.querySelector("#inclination-value");
 const q0value = document.querySelector("#q0-value");
@@ -55,8 +23,6 @@ q0input.addEventListener("input", (event) => {
   calculateInclination();
 });
 toggleButton.onclick = toggleGroundTruth;
-
-drawEllipseFromRectangle(0,0,w,h);
 
 const widthSlider = document.querySelector('#width');
 const heightSlider = document.querySelector('#height');
@@ -151,3 +117,5 @@ function toggleGroundTruth() {
         toggleButton.classList.add('button');
     }
 }
+
+//drawEllipseFromRectangle(0,0,w,h);

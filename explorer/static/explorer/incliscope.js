@@ -147,19 +147,3 @@ function mixed_pdf(x, means, stds, alphas) {
     });
 }())
 
-// UI Functionalities
-const smaSlider = document.querySelector('#sma');
-const smiSlider = document.querySelector('#smi');
-const sma = document.querySelector('#sma-value');
-const smi = document.querySelector('#smi-value');
-sma.textContent = smaSlider.value;
-smi.textContent = smiSlider.value;
-
-smaSlider.addEventListener("input", (event) => {
-  sma.textContent = event.target.value;
-});
-
-smiSlider.addEventListener("input", (event) => {
-  smi.textContent = event.target.value;
-});
-
