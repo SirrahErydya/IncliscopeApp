@@ -50,6 +50,7 @@ output {
 #inclination {
     text-align: center;
     background-color: #535353;
+    margin: 10px;
     padding: 10px;
     font-size: 20pt;
     font-weigth: bold;

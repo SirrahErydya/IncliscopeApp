@@ -1,4 +1,10 @@
 // DATA
+var weightedMean = pred_alpha[0] * pred_mean[0];
+for(i=1; i<pred_alpha.length; i++) {
+    weightedMean += pred_alpha[i] * pred_mean[i];
+}
+var highestMean = pred_mean[pred_alpha.indexOf(Math.max(...pred_alpha))];
+iValue.textContent = highestMean.toFixed(2) + '';
 
 function range(start, stop, num_samples) {
     a = Array(num_samples);
@@ -8,7 +14,6 @@ function range(start, stop, num_samples) {
         a[i] = value;
         value += step;
     }
-    console.log(a);
     return a
 }
 
@@ -33,7 +38,8 @@ function mixed_pdf(x, means, stds, alphas) {
     corsairPlugin = {
         id: 'corsair',
         defaults: {
-            color: '#FF4949',
+            color: '#aaaaaa',
+            line_width: 1
         },
         afterInit: (chart, args, opts) => {
             chart.corsair = {
@@ -51,7 +57,11 @@ function mixed_pdf(x, means, stds, alphas) {
         },
         afterDatasetsDraw: (chart, args, opts) => {
             if (!chart.corsair) {
-                chart.corsair = { x: 0, y: 0, draw: false };
+                chart.corsair = {
+                    x: 0,
+                    y: 0,
+                    draw: false
+                };
             }
             const {ctx} = chart
             const {top, bottom, left, right} = chart.chartArea
@@ -61,19 +71,18 @@ function mixed_pdf(x, means, stds, alphas) {
             ctx.save()
 
             ctx.beginPath()
-            ctx.lineWidth = 3
+            ctx.lineWidth = 1
             ctx.strokeStyle = opts.color
             ctx.moveTo(x, bottom)
             ctx.lineTo(x, top)
             ctx.stroke()
 
-            /*ctx.beginPath()
-            ctx.lineWidth = 1
+            ctx.beginPath()
+            ctx.lineWidth = opts.line_width
             ctx.strokeStyle = opts.color
             ctx.moveTo(left, y)
             ctx.lineTo(right, y)
-            ctx.stroke()*/
-            console.log(x)
+            ctx.stroke()
 
             if(!chart.tooltip.getActiveElements().length) {
                 chart.tooltip.setActiveElements([{
@@ -81,9 +90,51 @@ function mixed_pdf(x, means, stds, alphas) {
                     index: x
                 }]);
                 chart.update();
-              }
+
+            }
+
 
             ctx.restore()
+        }
+    }
+
+    selectionPlugin = {
+        id: 'selection',
+        defaults: {
+            color: '#ff0000',
+            line_width: 3
+        },
+        afterInit: (chart, args, opts) => {
+            chart.selection = {
+                loc: 0,
+                draw: false
+            }
+        },
+        afterEvent: (chart, args) => {
+            const { event } = args;
+
+            if( event.type == 'click') {
+                chart.selection.loc = event.x
+            }
+            chart.draw()
+        },
+        afterDatasetsDraw: (chart, args, opts) => {
+            if (!chart.selection) {
+                chart.selection = {
+                    loc: 0,
+                    draw: false
+                };
+            }
+            const {ctx} = chart
+            const {top, bottom, left, right} = chart.chartArea
+
+            ctx.beginPath()
+            ctx.lineWidth = opts.line_width
+            ctx.strokeStyle = opts.color
+            ctx.moveTo(chart.selection.loc, bottom)
+            ctx.lineTo(chart.selection.loc, top)
+            ctx.stroke()
+            console.log(chart.selection.loc)
         }
     }
 
@@ -106,9 +157,6 @@ function mixed_pdf(x, means, stds, alphas) {
                 intersect: false,
             },
             plugins: {
-                corsair: {
-                    color: 'red'
-                },
                 tooltip: {
                     callbacks: {
                         title: function (ctx) {
@@ -117,8 +165,7 @@ function mixed_pdf(x, means, stds, alphas) {
 
                             let value = chart.scales.x.getValueForPixel(ctx[0].parsed.x);
 
-                            // 2. Round the value (Choose Option A or B below)
-                            // Option B: Round to exactly 2 decimal places
+                            // 2. Round the value
                             let roundedValue = value.toFixed(2)/10;
 
                             // 3. Return the formatted string (Dataset Label: Value)
@@ -143,7 +190,7 @@ function mixed_pdf(x, means, stds, alphas) {
                 }
             }
         },
-        plugins: [ corsairPlugin ]
+        plugins: [ corsairPlugin, selectionPlugin ]
     });
 }())
 

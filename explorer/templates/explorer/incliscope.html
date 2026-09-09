@@ -14,6 +14,7 @@
         <br/>
         <input type="range" id="height" name="height" min="1" max="255" step="1"/>
         <label for="height">Height = <output id="height-value"></output></label>
+        <br/>
         <p id="inclination">
             Inclination <i>i</i> = <output id="inclination-value">...</output>°
             <span id="gt" style="display:none;">(True value: {{ galaxy.i_mean|floatformat:2 }}°)</span>
@@ -26,5 +27,5 @@
     var pred_std = JSON.parse('[' + {{ galaxy.pred_std|escapejs }} + ']');
     var pred_alpha = JSON.parse('[' + {{ galaxy.pred_alpha|escapejs }} + ']');
 </script>
-<script src="{% static 'explorer/isophotes.js' %}"></script>
+<script src="{% static 'explorer/ellipses.js' %}"></script>
 <script src="{% static 'explorer/incliscope.js' %}"></script>
