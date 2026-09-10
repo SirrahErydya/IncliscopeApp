@@ -31,3 +31,5 @@ canvas.onmousemove = function(e) {
     drawEllipseFromRectangle(x1, y1, x2, y2);
 
 }
+
+drawEllipseFromRectangle(0,0,w,h);

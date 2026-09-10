@@ -6,6 +6,8 @@ for(i=1; i<pred_alpha.length; i++) {
 var highestMean = pred_mean[pred_alpha.indexOf(Math.max(...pred_alpha))];
 iValue.textContent = highestMean.toFixed(2) + '';
 
+var inclination = iValue.textContent;
+
 function range(start, stop, num_samples) {
     a = Array(num_samples);
     step = (stop-start+1)/num_samples;
@@ -32,7 +34,7 @@ function mixed_pdf(x, means, stds, alphas) {
 
 (async function() {
     // DATA
-    const samples = range(0.0, 90.00, 900.);
+    const samples = range(0.0, 100.00, 1000.);
 
     // PLUGINS
     corsairPlugin = {
@@ -105,10 +107,10 @@ function mixed_pdf(x, means, stds, alphas) {
             line_width: 3
         },
         afterInit: (chart, args, opts) => {
+            /*console.log(inclination)
             chart.selection = {
-                loc: 0,
-                draw: false
-            }
+                loc: chart.scales.x.getPixelForValue(inclination, 0)
+            }*/
         },
         afterEvent: (chart, args) => {
             const { event } = args;
@@ -118,11 +120,10 @@ function mixed_pdf(x, means, stds, alphas) {
             }
             chart.draw()
         },
-        afterDatasetsDraw: (chart, args, opts) => {
+        afterDraw: (chart, args, opts) => {
             if (!chart.selection) {
                 chart.selection = {
-                    loc: 0,
-                    draw: false
+                    loc: chart.scales.x.getPixelForValue(inclination, 0),
                 };
             }
             const {ctx} = chart
@@ -163,10 +164,11 @@ function mixed_pdf(x, means, stds, alphas) {
                             // 1. Get the raw numeric value
                             const chart = ctx[0].chart
 
-                            let value = chart.scales.x.getValueForPixel(ctx[0].parsed.x);
+                            //let value = chart.scales.x.getValueForPixel(ctx[0].parsed.x);
+                            let value = chart.scales.x.getValueForPixel(chart.corsair.x);
 
                             // 2. Round the value
-                            let roundedValue = value.toFixed(2)/10;
+                            let roundedValue = value.toFixed(2);
 
                             // 3. Return the formatted string (Dataset Label: Value)
                             return `i = ${roundedValue}°`;
@@ -176,17 +178,17 @@ function mixed_pdf(x, means, stds, alphas) {
             },
             scales: {
                 x: {
+                    type: 'linear',
                     ticks: {
-                        // For a category axis, the val is the index so the lookup via getLabelForValue is needed
                         callback: function(val, index) {
-                            // Hide every 2nd tick label
-                            return index % 3 === 0 ? this.getLabelForValue(val).toFixed(2) + '°' : '';
+                            return val.toFixed(2) + '°';
                         }
                     },
                     title: {
                         display: true,
                         text: "Inclination Angle"
-                    }
+                    },
+                    max: 100
                 }
             }
         },
