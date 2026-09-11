@@ -4,9 +4,31 @@ for(i=1; i<pred_alpha.length; i++) {
     weightedMean += pred_alpha[i] * pred_mean[i];
 }
 var highestMean = pred_mean[pred_alpha.indexOf(Math.max(...pred_alpha))];
-iValue.textContent = highestMean.toFixed(2) + '';
+var inclination;
 
-var inclination = iValue.textContent;
+widthSlider.addEventListener("input", (event) => {
+  ellipseWidth.textContent = event.target.value;
+  calculateAxis();
+});
+
+function OnInclinationChanged(i) {
+    inclination = i;
+    iValue.textContent = i;
+    calculateAxis()
+}
+
+function calculateAxis() {
+    axis_ratio = Math.sqrt(Math.cos(inclination)**2 * (1 - q0input.value**2) +  q0input.value**2)
+    if( axis_ratio < 1) {
+        sma = ellipseWidth.textContent;
+        smi = axis_ratio * sma
+        drawEllipse(sma, smi)
+    } else {
+        smi = ellipseWidth.textContent
+        sma = smi / axis_ratio
+        drawEllipse(smi, sma)
+    }
+}
 
 function range(start, stop, num_samples) {
     a = Array(num_samples);
@@ -41,7 +63,7 @@ function mixed_pdf(x, means, stds, alphas) {
         id: 'corsair',
         defaults: {
             color: '#aaaaaa',
-            line_width: 1
+            line_width: 1,
         },
         afterInit: (chart, args, opts) => {
             chart.corsair = {
@@ -104,19 +126,21 @@ function mixed_pdf(x, means, stds, alphas) {
         id: 'selection',
         defaults: {
             color: '#ff0000',
-            line_width: 3
+            line_width: 3,
+            default_i: highestMean
         },
         afterInit: (chart, args, opts) => {
-            /*console.log(inclination)
             chart.selection = {
-                loc: chart.scales.x.getPixelForValue(inclination, 0)
-            }*/
+                loc: chart.scales.x.getPixelForValue(opts.default_i, 0)
+            }
+            OnInclinationChanged(opts.default_i.toFixed(2))
         },
         afterEvent: (chart, args) => {
             const { event } = args;
 
             if( event.type == 'click') {
                 chart.selection.loc = event.x
+                OnInclinationChanged(chart.scales.x.getValueForPixel(event.x).toFixed(2));
             }
             chart.draw()
         },
