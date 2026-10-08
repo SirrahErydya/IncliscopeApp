@@ -6,6 +6,17 @@ for(i=1; i<pred_alpha.length; i++) {
 var highestMean = pred_mean[pred_alpha.indexOf(Math.max(...pred_alpha))];
 var inclination;
 
+const sma_radio = document.querySelector("#sma");
+const smi_radio = document.querySelector("#smi");
+
+sma_radio.addEventListener("input", (event) => {
+  calculateAxis();
+});
+
+smi_radio.addEventListener("input", (event) => {
+  calculateAxis();
+});
+
 widthSlider.addEventListener("input", (event) => {
   ellipseWidth.textContent = event.target.value;
   calculateAxis();
@@ -18,12 +29,12 @@ function OnInclinationChanged(i) {
 }
 
 function calculateAxis() {
-    axis_ratio = Math.sqrt(Math.cos(inclination)**2 * (1 - q0input.value**2) +  q0input.value**2)
-    if( axis_ratio < 1) {
+    axis_ratio = Math.sqrt(Math.cos(inclination*Math.PI/180.)**2 * (1 - q0input.value**2) +  q0input.value**2)
+    if( sma_radio.checked) {
         sma = ellipseWidth.textContent;
         smi = axis_ratio * sma
         drawEllipse(sma, smi)
-    } else {
+    } else if(smi_radio.checked) {
         smi = ellipseWidth.textContent
         sma = smi / axis_ratio
         drawEllipse(smi, sma)

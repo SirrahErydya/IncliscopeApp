@@ -15,6 +15,10 @@
         <input style='display: none;' type="range" id="height" name="height" min="1" max="128" step="1"/>
         <label style='display: none;' for="height">Height = <output id="height-value"></output></label>
         <br/>
+        <input type="radio" name="axis" id="sma" value="sma" checked />
+        <label for="sma">Semimajor Axis</label>
+        <input type="radio" name="axis" id="smi" value="smi" />
+        <label for="smi">Semiminor Axis</label>
         <p id="inclination">
             Inclination <i>i</i> = <output id="inclination-value">...</output>°
             <span id="gt" style="display:none;">(True value: {{ galaxy.i_mean|floatformat:2 }}°)</span>
